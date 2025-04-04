@@ -120,3 +120,6 @@
     @apply bg-background text-foreground;
   }
 }
+.bg-cream-50 {
+  background-color: #fffbeb;
+}
