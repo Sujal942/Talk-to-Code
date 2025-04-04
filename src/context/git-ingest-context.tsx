@@ -204,16 +204,7 @@ export function GitIngestProvider({ children }: { children: ReactNode }) {
   };
 
   const buildFallbackDirectoryStructure = (): string => {
-    return `├── ignore_patterns.py
-├── ingestion_utils.py
-├── notebook_utils.py
-├── path_utils.py
-├── query_parser_utils.py
-├── timeout_wrapper.py
-├── server/
-│   ├── __init__.py
-│   ├── main.py
-│   └── query_processor.py`;
+    return ``;
   };
 
   const analyzeCodebase = async () => {

@@ -48,7 +48,11 @@ export function AppSidebar() {
       <SidebarContent className="w-64 bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-r border-gray-200 dark:border-gray-700">
         <SidebarGroup>
           <SidebarGroupLabel className="text-2xl bg-amber-50 p-8">
-            Talk To Code
+            <h1 className="text-2xl font-bold">
+              <span className="text-black">Talk</span>
+              <span className="text-red-500">To</span>
+              <span className="text-black">Code</span>
+            </h1>
           </SidebarGroupLabel>
           <SidebarGroupContent className="mt-8">
             <SidebarMenu>
