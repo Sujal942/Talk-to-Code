@@ -5,9 +5,9 @@ import { useGitIngest } from "@/context/git-ingest-context";
 
 export default function GitIngestForm() {
   const { fetchRepository, isLoading } = useGitIngest();
-  const [repoUrl, setRepoUrl] = useState("cyclotruc/gitingest");
+  const [repoUrl, setRepoUrl] = useState("");
   const [includeSmallFiles, setIncludeSmallFiles] = useState(true);
-  const [excludePattern, setExcludePattern] = useState("*.md, src/");
+  const [excludePattern, setExcludePattern] = useState("");
 
   const handleIngest = async () => {
     await fetchRepository(repoUrl, excludePattern, includeSmallFiles ? 50 : 0);
