@@ -3,7 +3,9 @@
 import { useGitIngest } from "@/context/git-ingest-context";
 
 export default function SummaryPanel() {
-  const { repoData } = useGitIngest();
+  const { repoData } = useGitIngest() || {
+    repoData: { repoName: "", filesAnalyzed: 0, estimatedTokens: "0k" },
+  };
 
   return (
     <textarea
