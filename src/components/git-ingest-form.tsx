@@ -84,15 +84,6 @@ export default function GitIngestForm() {
             onClick={() => setIncludeSmallFiles(!includeSmallFiles)}
             className="w-auto inset-0 rounded-full bg-gradient-to-r from-red-400 to-amber-200"
           />
-          {/* <div className="relative w-48 h-6">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-400 to-amber-200"></div>
-            <div
-              className={`absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full border-2 border-gray-400 shadow-md cursor-pointer transition-all ${
-                includeSmallFiles ? "left-[calc(50%-12px)]" : "left-0"
-              }`}
-              onClick={() => setIncludeSmallFiles(!includeSmallFiles)}
-            ></div>
-          </div> */}
           <span className="text-sm text-gray-700 font-medium mr-6">50kb</span>
         </div>
       </div>
