@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+gitingest
+python-multipart  # For handling form data if needed
+transformers      # For AI question-answering (optional)
+torch            # For transformers (if using GPU, install with CUDA support)
+tf-keras
