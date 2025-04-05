@@ -83,7 +83,7 @@ export function GitIngestProvider({ children }: { children: React.ReactNode }) {
       setRepoData((prev) => ({ ...prev, filesContent: data.summary || "No analysis available" }));
     } catch (error) {
       console.error("Error analyzing codebase with Gemini API:", error);
-      setRepoData((prev) => ({ ...prev, filesContent: "Error analyzing codebase" }));
+      setRepoData((prev) => ({ ...prev, filesContent: {} }));
     } finally {
       setIsLoading(false);
     }
