@@ -52,7 +52,7 @@ export function GitIngestProvider({ children }: { children: React.ReactNode }) {
       });
     } catch (error) {
       console.error("Error fetching repository:", error);
-      setRepoData((prev) => ({ ...prev, directoryStructure: "Error loading structure", filesContent: {} }));
+      setRepoData((prev) => ({ ...prev, directoryStructure: "Error loading structure", filesContent: "Error loading content" }));
     } finally {
       setIsLoading(false);
     }
