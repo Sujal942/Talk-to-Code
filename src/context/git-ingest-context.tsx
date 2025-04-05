@@ -63,7 +63,7 @@ export function GitIngestProvider({ children }: { children: React.ReactNode }) {
       setRepoData((prev) => ({
         ...prev,
         directoryStructure: "Error loading structure",
-        filesContent: "Error loading content",
+        filesContent: {}, // Updated to match the expected type
       }));
     } finally {
       setIsLoading(false);
