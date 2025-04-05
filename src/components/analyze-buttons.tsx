@@ -22,7 +22,7 @@ export default function AnalyzeButtons() {
       setOutput(data.answer || "No answer available");
     } catch (error) {
       console.error("Question error:", error);
-      setOutput("Error: " + error.message);
+      setOutput("Error: " + (error instanceof Error ? error.message : "Unknown error"));
     }
   };
 
