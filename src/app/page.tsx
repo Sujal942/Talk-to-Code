@@ -19,12 +19,13 @@ export default function Home() {
         <header className="border-b border-gray-200 p-4  flex items-center justify-between bg-white sticky top-0 z-20">
           <Logo />
           <div className="flex items-center gap-6">
-            <button
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="text-sm px-3 py-1 bg-gray-100 border rounded hover:bg-gray-200 transition"
+          
+          <a
+              href="/contribute"
+              className="text-gray-700 hover:text-gray-900 transition-colors"
             >
-              {isSidebarOpen ? "Hide Sidebar" : "Show Sidebar"}
-            </button>
+              Contribute
+            </a>
             <a
               href="#"
               className="text-gray-700 hover:text-gray-900 transition-colors"
