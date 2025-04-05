@@ -1,0 +1,34 @@
+name: Chrome Extension Release
+
+on:
+  push:
+    branches:
+      - main  # Trigger on pushes to main; adjust as needed
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # Use a recent Node.js version
+
+      # Package the extension into a .zip file
+      - name: Package Extension
+        run: |
+          cd gitsense-extension
+          zip -r gitsense-extension.zip . -x "*.git*"
+
+      # Upload the release artifact
+      - name: Upload Release Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: gitsense-extension-release
+          path: gitsense-extension/gitsense-extension.zip
