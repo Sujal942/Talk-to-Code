@@ -1,11 +1,18 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import Logo from "../../components/logo";
 import GoodFirstIssuesPanel from "../../components/good-first-issues-panel";
 import axios from "axios";
 
 export default function Contribute() {
-  const [issues, setIssues] = useState([]);
+  const [issues, setIssues] = useState({
+    goodFirst: [],
+    enhancements: [],
+    bugs: [],
+    features: [],
+    uiux: [],
+  });
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [repoUrl, setRepoUrl] = useState("https://github.com/Sujal942/Talk-to-Code");
@@ -21,7 +28,7 @@ export default function Contribute() {
         )}/issues`,
         {
           headers: {
-            Authorization: token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}, // Use environment variable
+            Authorization: `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`, // Corrected template literal
           },
           params: {
             state: "open",
@@ -36,11 +43,16 @@ export default function Contribute() {
           ["good first issue"].includes(label.name.toLowerCase())
         )
       );
-      setIssues(filteredIssues);
+      setIssues({
+        goodFirst: filteredIssues,
+        enhancements: [],
+        bugs: [],
+        features: [],
+        uiux: [],
+      });
     } catch (err) {
       setError(
-        `Error fetching issues: ${
-          axios.isAxiosError(err) ? err.message : "Unknown error"
+        `Error fetching issues: ${axios.isAxiosError(err) ? err.message : "Unknown error"
         }`
       );
     } finally {
