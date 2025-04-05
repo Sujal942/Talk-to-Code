@@ -73,7 +73,14 @@ export default function GitIngestForm() {
           <span className="text-sm text-gray-700 font-medium">
             Include files under:
           </span>
-          <div className="relative w-48 h-6">
+          <input
+            type="range"
+            name=""
+            id=""
+            onClick={() => setIncludeSmallFiles(!includeSmallFiles)}
+            className="w-48 h-6 inset-0 rounded-full bg-gradient-to-r from-red-400 to-amber-200"
+          />
+          {/* <div className="relative w-48 h-6">
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-400 to-amber-200"></div>
             <div
               className={`absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full border-2 border-gray-400 shadow-md cursor-pointer transition-all ${
@@ -81,7 +88,7 @@ export default function GitIngestForm() {
               }`}
               onClick={() => setIncludeSmallFiles(!includeSmallFiles)}
             ></div>
-          </div>
+          </div> */}
           <span className="text-sm text-gray-700 font-medium">50kb</span>
         </div>
       </div>
