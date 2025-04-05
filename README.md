@@ -2,7 +2,7 @@
 
 ### 🚀 Talk2Code by Team Meta Daters @ Hackbyte
 
-**Talk2Code** is your AI-powered GitHub codebase assistant — designed to help developers **understand, navigate, and contribute** to any code repository with ease.
+**Talk2Code** is your AI-powered GitHub codebase assistant designed to help developers **understand, navigate, and contribute** to any code repository with ease.
 
 #### 💡 What It Does:
 Talk2Code ingests a GitHub repository and uses AI to:
