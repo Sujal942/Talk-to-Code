@@ -1,4 +1,4 @@
-name: Chrome Extension Release
+name: Chrome Extension CI
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main  # Trigger on pushes to main; adjust as needed
 
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,17 +20,28 @@ jobs:
         with:
           node-version: '18'  # Use a recent Node.js version
 
+      # Install dependencies for the extension
+      - name: Install Dependencies
+        run: |
+          cd gitsense-extension
+          npm install  # Install any Node.js dependencies if present (e.g., for build tools)
+
+      # Build the extension (if applicable)
+      - name: Build Extension
+        run: |
+          cd gitsense-extension
+          # Add build steps if you have a build process (e.g., 'npm run build')
+          # For now, assume the extension is ready in its current form
+
       # Package the extension into a .zip file
       - name: Package Extension
         run: |
           cd gitsense-extension
           zip -r gitsense-extension.zip . -x "*.git*"
-        continue-on-error: false  # Fail the job if zipping fails
 
-      # Upload the release artifact
-      - name: Upload Release Artifact
-        uses: actions/upload-artifact@v3.1.2  # Pin to a specific version
+      # Upload the artifact for manual use
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
         with:
-          name: gitsense-extension-release
+          name: gitsense-extension
           path: gitsense-extension/gitsense-extension.zip
-        continue-on-error: false  # Fail the job if upload fails
