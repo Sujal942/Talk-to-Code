@@ -8,6 +8,7 @@ import AnalyzeButtons from "../components/analyze-buttons";
 import SummaryPanel from "../components/summary-panel";
 import DirectoryStructurePanel from "../components/directory-structure-panel";
 import FilesContentPanel from "../components/files-content-panel";
+import Link from "next/link";
 
 export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -19,8 +20,7 @@ export default function Home() {
         <header className="border-b border-gray-200 p-4  flex items-center justify-between bg-white sticky top-0 z-20">
           <Logo />
           <div className="flex items-center gap-6">
-          
-          <a
+            <a
               href="/contribute"
               className="text-gray-700 hover:text-gray-900 transition-colors"
             >
@@ -32,12 +32,12 @@ export default function Home() {
             >
               Extension
             </a>
-            <a
-              href="#"
+            <Link
+              href="https://github.com/Sujal942/Talk-to-Code"
               className="text-gray-700 hover:text-gray-900 transition-colors"
             >
               Github
-            </a>
+            </Link>
           </div>
         </header>
 
@@ -45,8 +45,9 @@ export default function Home() {
         <div className="flex flex-1 max-w-screen-xl mx-auto w-full h-[calc(100vh-60px)] overflow-hidden transition-all duration-300">
           {/* Left Panel */}
           <div
-            className={`transition-all duration-300 ${isSidebarOpen ? "w-3/5" : "w-full"
-              } border-r border-gray-200 p-6 overflow-y-auto`}
+            className={`transition-all duration-300 ${
+              isSidebarOpen ? "w-3/5" : "w-full"
+            } border-r border-gray-200 p-6 overflow-y-auto`}
           >
             <div className="space-y-6">
               {/* Git Ingest Form */}
@@ -80,7 +81,9 @@ export default function Home() {
 
         {/* Footer */}
         <footer className="border-t border-gray-200 p-4 flex justify-between items-center text-sm text-gray-600 mt-auto">
-          <button className="flex items-center gap-1">Suggest a feature</button>
+          <button className="flex items-center gap-1">
+            © 2025 Talk2Code. All rights reserved.
+          </button>
           <button className="flex items-center gap-1">
             Made By Meta Daters
           </button>
