@@ -4,7 +4,11 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 interface GitIngestContextType {
   repoData: RepoData;
-  fetchRepository: (repoUrl: string, exclude: string, maxSizeKb: number) => Promise<void>;
+  fetchRepository: (
+    repoUrl: string,
+    exclude: string,
+    maxSizeKb: number
+  ) => Promise<void>;
   analyzeCodebase: () => Promise<void>;
   analyzeStructure: () => Promise<void>;
   isLoading: boolean;
@@ -12,15 +16,15 @@ interface GitIngestContextType {
 
 const GitIngestContext = createContext<GitIngestContextType | null>(null);
 
-export function GitIngestProvider({ children }: { children: React.ReactNode }) {
-  interface RepoData {
-    directoryStructure: string;
-    filesContent: Record<string, string>;
-    repoName: string;
-    filesAnalyzed: number;
-    estimatedTokens: number;
-  }
+interface RepoData {
+  directoryStructure: string;
+  filesContent: Record<string, string>;
+  repoName: string;
+  filesAnalyzed: number;
+  estimatedTokens: number;
+}
 
+export function GitIngestProvider({ children }: { children: React.ReactNode }) {
   const [repoData, setRepoData] = useState<RepoData>({
     directoryStructure: "",
     filesContent: {},
@@ -30,13 +34,21 @@ export function GitIngestProvider({ children }: { children: React.ReactNode }) {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchRepository = async (repoUrl: string, exclude: string, maxSizeKb: number) => {
+  const fetchRepository = async (
+    repoUrl: string,
+    exclude: string,
+    maxSizeKb: number
+  ) => {
     setIsLoading(true);
     try {
       const response = await fetch("http://localhost:8000/ingest", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ repo_url: repoUrl, exclude, max_size_kb: maxSizeKb }),
+        body: JSON.stringify({
+          repo_url: repoUrl,
+          exclude,
+          max_size_kb: maxSizeKb,
+        }),
       });
       const data = await response.json();
       setRepoData({
@@ -48,7 +60,11 @@ export function GitIngestProvider({ children }: { children: React.ReactNode }) {
       });
     } catch (error) {
       console.error("Error fetching repository:", error);
-      setRepoData((prev) => ({ ...prev, directoryStructure: "Error loading structure", filesContent: "Error loading content" }));
+      setRepoData((prev) => ({
+        ...prev,
+        directoryStructure: "Error loading structure",
+        filesContent: "Error loading content",
+      }));
     } finally {
       setIsLoading(false);
     }
@@ -63,14 +79,21 @@ export function GitIngestProvider({ children }: { children: React.ReactNode }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           code: repoData.filesContent,
-          question: "Analyze this codebase and provide a summary of its main components and functionality."
+          question:
+            "Analyze this codebase and provide a summary of its main components and functionality.",
         }),
       });
       const data = await response.json();
-      setRepoData((prev) => ({ ...prev, filesContent: data.answer || "No analysis available" }));
+      setRepoData((prev) => ({
+        ...prev,
+        filesContent: data.answer || "No analysis available",
+      }));
     } catch (error) {
       console.error("Error analyzing codebase:", error);
-      setRepoData((prev) => ({ ...prev, filesContent: "Error analyzing codebase" }));
+      setRepoData((prev) => ({
+        ...prev,
+        filesContent: "Error analyzing codebase",
+      }));
     } finally {
       setIsLoading(false);
     }
@@ -85,21 +108,36 @@ export function GitIngestProvider({ children }: { children: React.ReactNode }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           code: repoData.directoryStructure,
-          question: "Analyze this directory structure and explain the project organization."
+          question:
+            "Analyze this directory structure and explain the project organization.",
         }),
       });
       const data = await response.json();
-      setRepoData((prev) => ({ ...prev, directoryStructure: data.answer || "No analysis available" }));
+      setRepoData((prev) => ({
+        ...prev,
+        directoryStructure: data.answer || "No analysis available",
+      }));
     } catch (error) {
       console.error("Error analyzing structure:", error);
-      setRepoData((prev) => ({ ...prev, directoryStructure: "Error analyzing structure" }));
+      setRepoData((prev) => ({
+        ...prev,
+        directoryStructure: "Error analyzing structure",
+      }));
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <GitIngestContext.Provider value={{ repoData, fetchRepository, analyzeCodebase, analyzeStructure, isLoading }}>
+    <GitIngestContext.Provider
+      value={{
+        repoData,
+        fetchRepository,
+        analyzeCodebase,
+        analyzeStructure,
+        isLoading,
+      }}
+    >
       {children}
     </GitIngestContext.Provider>
   );
