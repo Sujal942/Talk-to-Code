@@ -4,8 +4,15 @@ import { useState } from "react";
 import { useGitIngest } from "@/context/git-ingest-context";
 
 export default function AnalyzeButtons() {
-  const { analyzeCodebase, analyzeStructure, isLoading, repoData } = useGitIngest();
-  const [activeTab, setActiveTab] = useState<"codebase" | "structure" | null>(null);
+  const gitIngestContext = useGitIngest();
+  if (!gitIngestContext) {
+    throw new Error("useGitIngest must be used within a GitIngestProvider");
+  }
+  const { analyzeCodebase, analyzeStructure, isLoading, repoData } =
+    gitIngestContext;
+  const [activeTab, setActiveTab] = useState<"codebase" | "structure" | null>(
+    null
+  );
   const [question, setQuestion] = useState("");
   const [output, setOutput] = useState("");
 
@@ -42,20 +49,22 @@ export default function AnalyzeButtons() {
       {/* Buttons Container */}
       <div className="flex justify-between gap-4">
         <button
-          className={`flex-1 px-4 py-2 rounded-md font-medium border border-amber-400 shadow-sm transition-colors duration-200 ${activeTab === "codebase"
-            ? "bg-amber-400 text-amber-900"
-            : "bg-amber-300 text-amber-800 hover:bg-amber-400"
-            } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+          className={`flex-1 px-4 py-2 rounded-md font-medium border border-amber-400 shadow-sm transition-colors duration-200 ${
+            activeTab === "codebase"
+              ? "bg-amber-400 text-amber-900"
+              : "bg-amber-300 text-amber-800 hover:bg-amber-400"
+          } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
           onClick={handleAnalyzeCodebase}
           disabled={isLoading}
         >
           Analyze Codebase
         </button>
         <button
-          className={`flex-1 px-4 py-2 rounded-md font-medium border border-amber-400 shadow-sm transition-colors duration-200 ${activeTab === "structure"
-            ? "bg-amber-400 text-amber-900"
-            : "bg-amber-300 text-amber-800 hover:bg-amber-400"
-            } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+          className={`flex-1 px-4 py-2 rounded-md font-medium border border-amber-400 shadow-sm transition-colors duration-200 ${
+            activeTab === "structure"
+              ? "bg-amber-400 text-amber-900"
+              : "bg-amber-300 text-amber-800 hover:bg-amber-400"
+          } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
           onClick={handleAnalyzeStructure}
           disabled={isLoading}
         >
@@ -72,10 +81,10 @@ export default function AnalyzeButtons() {
               ? "Analyzing codebase..."
               : "Enter repository details for codebase analysis"
             : activeTab === "structure"
-              ? isLoading
-                ? "Analyzing structure..."
-                : "Enter repository details for structure analysis"
-              : "Select an analysis type to begin"
+            ? isLoading
+              ? "Analyzing structure..."
+              : "Enter repository details for structure analysis"
+            : "Select an analysis type to begin"
         }
         disabled={isLoading}
       />
