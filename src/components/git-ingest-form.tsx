@@ -4,7 +4,11 @@ import { useState } from "react";
 import { useGitIngest } from "@/context/git-ingest-context";
 
 export default function GitIngestForm() {
-  const { fetchRepository, isLoading } = useGitIngest();
+  const gitIngestContext = useGitIngest();
+  if (!gitIngestContext) {
+    throw new Error("useGitIngest must be used within a GitIngestProvider");
+  }
+  const { fetchRepository, isLoading } = gitIngestContext;
   const [repoUrl, setRepoUrl] = useState("");
   const [includeSmallFiles, setIncludeSmallFiles] = useState(true);
   const [excludePattern, setExcludePattern] = useState("");
