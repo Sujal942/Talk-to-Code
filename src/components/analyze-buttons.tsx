@@ -31,11 +31,15 @@ export default function AnalyzeButtons() {
   const handleAskQuestion = async () => {
     if (!question || !repoData.filesContent) return;
     try {
-      const response = await fetch("http://localhost:8000/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: repoData.filesContent, question }),
-      });
+      // const response = await fetch("http://localhost:8000/analyze", {
+      const response = await fetch(
+        "https://talk-to-code-1.onrender.com/analyze",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ code: repoData.filesContent, question }),
+        }
+      );
       const data = await response.json();
       setOutput(data.answer || "No answer available");
     } catch (error) {
@@ -46,8 +50,6 @@ export default function AnalyzeButtons() {
 
   return (
     <div className="space-y-6 max-w-md mx-auto">
-     
-
       {/* Analysis Input */}
       <textarea
         className="w-full bg-cream-50 border-2 border-gray-800 rounded-xl h-[250px] shadow-inner p-4 resize-none focus:outline-none focus:ring-2 focus:ring-amber-400"
@@ -67,20 +69,22 @@ export default function AnalyzeButtons() {
       {/* Buttons Container */}
       <div className="flex justify-between gap-4">
         <button
-          className={`flex-1 px-4 py-2 rounded-md font-medium border border-amber-400 shadow-sm transition-colors duration-200 ${activeTab === "codebase"
+          className={`flex-1 px-4 py-2 rounded-md font-medium border border-amber-400 shadow-sm transition-colors duration-200 ${
+            activeTab === "codebase"
               ? "bg-amber-400 text-amber-900"
               : "bg-amber-300 text-amber-800 hover:bg-amber-400"
-            } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+          } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
           onClick={handleAnalyzeCodebase}
           disabled={isLoading}
         >
           Analyze Codebase
         </button>
         <button
-          className={`flex-1 px-4 py-2 rounded-md font-medium border border-amber-400 shadow-sm transition-colors duration-200 ${activeTab === "structure"
+          className={`flex-1 px-4 py-2 rounded-md font-medium border border-amber-400 shadow-sm transition-colors duration-200 ${
+            activeTab === "structure"
               ? "bg-amber-400 text-amber-900"
               : "bg-amber-300 text-amber-800 hover:bg-amber-400"
-            } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+          } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
           onClick={handleAnalyzeStructure}
           disabled={isLoading}
         >
@@ -111,8 +115,6 @@ export default function AnalyzeButtons() {
         placeholder="Output or answer will appear here"
         readOnly
       />
-
-  
     </div>
   );
 }
