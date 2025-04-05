@@ -13,10 +13,10 @@ export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
-    <div className="flex flex-col ml-22 min-h-screen bg-gray-50">
+    <div className="flex flex-col ml-22 lg:ml-10 min-h-screen bg-gray-50">
       <GitIngestProvider>
         {/* Header */}
-        <header className="border-b border-gray-200 px-6 mt-[-38px] flex items-center justify-between bg-white sticky top-0 z-20">
+        <header className="border-b border-gray-200 p-4  flex items-center justify-between bg-white sticky top-0 z-20">
           <Logo />
           <div className="flex items-center gap-6">
             <button
@@ -44,9 +44,8 @@ export default function Home() {
         <div className="flex flex-1 max-w-screen-xl mx-auto w-full h-[calc(100vh-60px)] overflow-hidden transition-all duration-300">
           {/* Left Panel */}
           <div
-            className={`transition-all duration-300 ${
-              isSidebarOpen ? "w-3/5" : "w-full"
-            } border-r border-gray-200 p-6 overflow-y-auto`}
+            className={`transition-all duration-300 ${isSidebarOpen ? "w-3/5" : "w-full"
+              } border-r border-gray-200 p-6 overflow-y-auto`}
           >
             <div className="space-y-6">
               {/* Git Ingest Form */}

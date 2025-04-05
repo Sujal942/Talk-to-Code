@@ -5,9 +5,7 @@ import { useGitIngest } from "@/context/git-ingest-context";
 
 export default function AnalyzeButtons() {
   const { analyzeCodebase, analyzeStructure, isLoading } = useGitIngest();
-  const [activeTab, setActiveTab] = useState<"codebase" | "structure" | null>(
-    null
-  );
+  const [activeTab, setActiveTab] = useState<"codebase" | "structure" | null>(null);
 
   const handleAnalyzeCodebase = async () => {
     setActiveTab("codebase");
@@ -20,78 +18,58 @@ export default function AnalyzeButtons() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between">
+    <div className="space-y-6 max-w-md mx-auto">
+      {/* Buttons Container */}
+      
+
+      {/* Analysis Input */}
+      <textarea
+        className="w-full bg-cream-50 border-2 border-gray-800 rounded-xl h-[250px] shadow-inner p-4 resize-none focus:outline-none focus:ring-2 focus:ring-amber-400"
+        placeholder={
+          activeTab === "codebase"
+            ? isLoading
+              ? "Analyzing codebase..."
+              : "Enter repository details for codebase analysis"
+            : activeTab === "structure"
+              ? isLoading
+                ? "Analyzing structure..."
+                : "Enter repository details for structure analysis"
+              : "Select an analysis type to begin"
+        }
+        disabled={isLoading}
+      />
+      <div className="flex justify-between gap-4">
         <button
-          className={`${
-            activeTab === "codebase"
-              ? "bg-amber-400 text-amber-900"
-              : "bg-amber-300 hover:bg-amber-400 text-amber-800"
-          } px-4 py-2 rounded-md font-medium border border-amber-400 shadow-sm transition-colors`}
+          className={`flex-1 px-4 py-2 rounded-md font-medium border border-amber-400 shadow-sm transition-colors duration-200 ${activeTab === "codebase"
+            ? "bg-amber-400 text-amber-900"
+            : "bg-amber-300 text-amber-800 hover:bg-amber-400"
+            } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
           onClick={handleAnalyzeCodebase}
           disabled={isLoading}
         >
           Analyze Codebase
         </button>
         <button
-          className={`${
-            activeTab === "structure"
-              ? "bg-amber-400 text-amber-900"
-              : "bg-amber-300 hover:bg-amber-400 text-amber-800"
-          } px-4 py-2 rounded-md font-medium border border-amber-400 shadow-sm transition-colors`}
+          className={`flex-1 px-4 py-2 rounded-md font-medium border border-amber-400 shadow-sm transition-colors duration-200 ${activeTab === "structure"
+            ? "bg-amber-400 text-amber-900"
+            : "bg-amber-300 text-amber-800 hover:bg-amber-400"
+            } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
           onClick={handleAnalyzeStructure}
           disabled={isLoading}
         >
           Analyze Structure
         </button>
       </div>
+      {/* Output Textarea */}
+      <textarea
+        className="w-full bg-cream-50 border-2 border-gray-800 rounded-xl h-[460px] shadow-inner p-4 resize-none focus:outline-none focus:ring-2 focus:ring-amber-400"
+        placeholder="Output will appear here"
+      />
 
-      <div className="bg-cream-50 border-2 border-gray-800 rounded-xl h-[250px] shadow-inner p-4">
-        {activeTab === "codebase" && (
-          <div className="h-full flex items-center justify-center">
-            {isLoading ? (
-              <div className="animate-pulse">Analyzing codebase...</div>
-            ) : (
-              <div className="text-center">
-                <h3 className="font-bold mb-2">Codebase Analysis</h3>
-                <p className="text-sm text-gray-600">
-                  Select a repository to analyze its codebase
-                </p>
-              </div>
-            )}
-          </div>
-        )}
-        {activeTab === "structure" && (
-          <div className="h-full flex items-center justify-center">
-            {isLoading ? (
-              <div className="animate-pulse">Analyzing structure...</div>
-            ) : (
-              <div className="text-center">
-                <h3 className="font-bold mb-2">Structure Analysis</h3>
-                <p className="text-sm text-gray-600">
-                  Select a repository to analyze its structure
-                </p>
-              </div>
-            )}
-          </div>
-        )}
-        {!activeTab && (
-          <div className="h-full flex items-center justify-center">
-            <div className="text-center">
-              <h3 className="font-bold mb-2">No Analysis Selected</h3>
-              <p className="text-sm text-gray-600">
-                Click one of the analyze buttons above
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="bg-cream-50 border-2 border-gray-800 rounded-xl h-[250px] shadow-inner"></div>
-
-      <div className="flex justify-end mt-4">
-        <button className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-          Ask about code
+      {/* Talk to Code Button */}
+      <div className="flex justify-end">
+        <button className="px-4 py-2 bg-amber-300 text-amber-800 border border-amber-400 rounded-md shadow-sm font-medium hover:bg-amber-400 transition-colors duration-200">
+          Talk to Code
         </button>
       </div>
     </div>
