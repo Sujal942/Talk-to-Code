@@ -14,7 +14,7 @@ Talk2Code ingests a GitHub repository and uses AI to:
 - Help learn more about codebase with user friendly chat system
 
 #### 🧠 How It Works:
-- 🔗 **Frontend**: Built with **ExtJS** for a smooth and interactive UI.
+- 🔗 **Frontend**: Built with **NextJS** for a smooth and interactive UI.
 - 🧠 **Backend**: Powered by **Python**, the **GitHub API**, and **Gemini AI API**.
 - ⚙️ **Functionality**:
   - Users input a GitHub repo URL
