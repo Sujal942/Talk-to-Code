@@ -92,7 +92,7 @@ export function GitIngestProvider({ children }: { children: React.ReactNode }) {
       console.error("Error analyzing codebase:", error);
       setRepoData((prev) => ({
         ...prev,
-        filesContent: "Error analyzing codebase",
+        filesContent: {}, // Updated to match the expected type
       }));
     } finally {
       setIsLoading(false);
