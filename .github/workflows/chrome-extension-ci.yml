@@ -25,10 +25,12 @@ jobs:
         run: |
           cd gitsense-extension
           zip -r gitsense-extension.zip . -x "*.git*"
+        continue-on-error: false  # Fail the job if zipping fails
 
       # Upload the release artifact
       - name: Upload Release Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2  # Pin to a specific version
         with:
           name: gitsense-extension-release
           path: gitsense-extension/gitsense-extension.zip
+        continue-on-error: false  # Fail the job if upload fails
