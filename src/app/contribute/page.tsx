@@ -9,7 +9,7 @@ export default function Contribute() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [repoUrl, setRepoUrl] = useState("https://github.com/Sujal942/Talk-to-Code");
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
   const fetchIssues = async () => {
     setIsLoading(true);
     setError(null);
@@ -25,12 +25,16 @@ export default function Contribute() {
           },
           params: {
             state: "open",
-            labels: "good first issue",
+            labels: "good first issue", // Include additional labels
+            per_page: 20, // Fetch more issues per page
+            page: 1,
           },
         }
       );
       const filteredIssues = response.data.filter((issue: any) =>
-        issue.labels.some((label: any) => label.name.toLowerCase() === "good first issue")
+        issue.labels.some((label: any) =>
+          ["good first issue"].includes(label.name.toLowerCase())
+        )
       );
       setIssues(filteredIssues);
     } catch (err) {
@@ -54,12 +58,6 @@ export default function Contribute() {
       <header className="border-b border-gray-200 p-4 flex items-center justify-between bg-white sticky top-0 z-20">
         <Logo />
         <div className="flex items-center gap-6">
-          <button
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="text-sm px-3 py-1 bg-gray-100 border rounded hover:bg-gray-200 transition"
-          >
-            {isSidebarOpen ? "Hide Sidebar" : "Show Sidebar"}
-          </button>
           <a
             href="/"
             className="text-gray-700 hover:text-gray-900 transition-colors"
@@ -82,13 +80,8 @@ export default function Contribute() {
       </header>
 
       {/* Main Content */}
-      <div className="flex flex-1 max-w-screen-xl mx-auto w-full h-[calc(100vh-60px)] overflow-hidden transition-all duration-300">
-        {/* Left Panel */}
-        <div
-          className={`transition-all duration-300 ${
-            isSidebarOpen ? "w-3/5" : "w-full"
-          } border-r border-gray-200 p-6 overflow-y-auto`}
-        >
+      <div className="flex flex-1 max-w-screen-xl mx-auto w-full h-[calc(100vh-60px)] overflow-hidden">
+        <div className="w-full border-r border-gray-200 p-6 overflow-y-auto">
           <div className="space-y-6">
             <div className="border-2 border-gray-800 rounded-xl p-8 bg-white shadow-md">
               <h2 className="font-bold text-xl mb-4">Contribute to {repoUrl}</h2>
@@ -108,13 +101,6 @@ export default function Contribute() {
             </div>
           </div>
         </div>
-
-        {/* Right Panel (Sidebar) - Optional, can be added later */}
-        {isSidebarOpen && (
-          <div className="w-2/5 p-6 bg-white overflow-y-auto border-l border-gray-200 transition-all duration-300">
-            {/* Add sidebar content if needed, e.g., AnalyzeButtons */}
-          </div>
-        )}
       </div>
 
       {/* Footer */}
@@ -125,4 +111,3 @@ export default function Contribute() {
     </div>
   );
 }
-
