@@ -29,8 +29,8 @@ export default function Contribute() {
   });
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [repoUrl, setRepoUrl] = useState<string>("https://github.com/Sujal942/Talk-to-Code");
-
+  const [repoUrl, setRepoUrl] = useState("https://github.com/Sujal942/Talk-to-Code");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const fetchIssues = async () => {
     setIsLoading(true);
     setError(null);
@@ -52,49 +52,14 @@ export default function Contribute() {
           headers,
           params: {
             state: "open",
-            per_page: 100, // Max allowed by GitHub API
-            page: 1,
+            labels: "good first issue",
           },
         }
       );
-
-      const allIssues: Issue[] = response.data;
-
-      // More flexible label matching
-      const matchLabels = (issue: Issue, labels: string[]) => {
-        const issueLabels = issue.labels.map(label => label.name.toLowerCase());
-        return labels.some(label => issueLabels.includes(label.toLowerCase()));
-      };
-
-      const categorizedIssues: IssuesByCategory = {
-        goodFirst: allIssues.filter(issue =>
-          matchLabels(issue, ["good first issue", "good-first-issue"])
-        ),
-        enhancements: allIssues.filter(issue =>
-          matchLabels(issue, ["enhancement", "improvement"])
-        ),
-        bugs: allIssues.filter(issue =>
-          matchLabels(issue, ["bug", "fix"])
-        ),
-        features: allIssues.filter(issue =>
-          matchLabels(issue, ["feature", "new feature", "feature-request"])
-        ),
-        uiux: allIssues.filter(issue =>
-          matchLabels(issue, ["ui", "ux", "ui/ux", "ui-ux", "design"])
-        )
-      };
-
-      setIssues(categorizedIssues);
-
-      // Log for debugging
-      console.log("Fetched issues:", {
-        total: allIssues.length,
-        categorized: categorizedIssues
-      });
-
-      if (allIssues.length === 0) {
-        setError("No open issues found in the repository.");
-      }
+      const filteredIssues = response.data.filter((issue: any) =>
+        issue.labels.some((label: any) => label.name.toLowerCase() === "good first issue")
+      );
+      setIssues(filteredIssues);
     } catch (err) {
       console.error("Fetch error:", err);
       if (axios.isAxiosError(err)) {
@@ -122,7 +87,16 @@ export default function Contribute() {
       <header className="border-b border-gray-200 p-4 flex items-center justify-between bg-white sticky top-0 z-20">
         <Logo />
         <div className="flex items-center gap-6">
-          <a href="/" className="text-gray-700 hover:text-gray-900 transition-colors">
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="text-sm px-3 py-1 bg-gray-100 border rounded hover:bg-gray-200 transition"
+          >
+            {isSidebarOpen ? "Hide Sidebar" : "Show Sidebar"}
+          </button>
+          <a
+            href="/"
+            className="text-gray-700 hover:text-gray-900 transition-colors"
+          >
             Home
           </a>
           <a href="#" className="text-gray-700 hover:text-gray-900 transition-colors">
@@ -134,8 +108,14 @@ export default function Contribute() {
         </div>
       </header>
 
-      <div className="flex flex-1 max-w-screen-xl mx-auto w-full h-[calc(100vh-60px)] overflow-hidden">
-        <div className="w-full border-r border-gray-200 p-6 overflow-y-auto">
+      {/* Main Content */}
+      <div className="flex flex-1 max-w-screen-xl mx-auto w-full h-[calc(100vh-60px)] overflow-hidden transition-all duration-300">
+        {/* Left Panel */}
+        <div
+          className={`transition-all duration-300 ${
+            isSidebarOpen ? "w-3/5" : "w-full"
+          } border-r border-gray-200 p-6 overflow-y-auto`}
+        >
           <div className="space-y-6">
             <div className="border-2 border-gray-800 rounded-xl p-8 bg-white shadow-md">
               <h2 className="font-bold text-xl mb-4">Contribute to {repoUrl}</h2>
@@ -164,3 +144,4 @@ export default function Contribute() {
     </div>
   );
 }
+

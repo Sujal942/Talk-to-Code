@@ -1,0 +1,16 @@
+/* GitSense Button Styles */
+#gitsense-button {
+  background-color: #6e40c9;
+  color: white;
+  border: 1px solid #5a32a3;
+  transition: all 0.2s ease;
+}
+
+#gitsense-button:hover {
+  background-color: #0255af;
+}
+
+#gitsense-button:disabled {
+  background-color: #6c7781;
+  cursor: not-allowed;
+}
