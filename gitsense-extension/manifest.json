@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "GitSense",
+  "version": "1.0",
+  "description": "Send GitHub repo URLs to deployed website for analysis",
+  "permissions": ["activeTab"],
+  "host_permissions": [
+    "https://github.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ]
+}
