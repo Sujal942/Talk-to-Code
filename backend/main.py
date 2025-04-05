@@ -14,7 +14,7 @@ app = FastAPI(title="Code Analysis API", description="API for ingesting Git repo
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3002", "http://localhost:8000"],
+    allow_origins=["https://talk-to-code.vercel.app", "http://localhost:3000", "http://localhost:3002", "http://localhost:8000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
