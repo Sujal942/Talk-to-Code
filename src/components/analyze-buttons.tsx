@@ -46,31 +46,7 @@ export default function AnalyzeButtons() {
 
   return (
     <div className="space-y-6 max-w-md mx-auto">
-      {/* Buttons Container */}
-      <div className="flex justify-between gap-4">
-        <button
-          className={`flex-1 px-4 py-2 rounded-md font-medium border border-amber-400 shadow-sm transition-colors duration-200 ${
-            activeTab === "codebase"
-              ? "bg-amber-400 text-amber-900"
-              : "bg-amber-300 text-amber-800 hover:bg-amber-400"
-          } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
-          onClick={handleAnalyzeCodebase}
-          disabled={isLoading}
-        >
-          Analyze Codebase
-        </button>
-        <button
-          className={`flex-1 px-4 py-2 rounded-md font-medium border border-amber-400 shadow-sm transition-colors duration-200 ${
-            activeTab === "structure"
-              ? "bg-amber-400 text-amber-900"
-              : "bg-amber-300 text-amber-800 hover:bg-amber-400"
-          } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
-          onClick={handleAnalyzeStructure}
-          disabled={isLoading}
-        >
-          Analyze Structure
-        </button>
-      </div>
+     
 
       {/* Analysis Input */}
       <textarea
@@ -88,7 +64,29 @@ export default function AnalyzeButtons() {
         }
         disabled={isLoading}
       />
-
+      {/* Buttons Container */}
+      <div className="flex justify-between gap-4">
+        <button
+          className={`flex-1 px-4 py-2 rounded-md font-medium border border-amber-400 shadow-sm transition-colors duration-200 ${activeTab === "codebase"
+              ? "bg-amber-400 text-amber-900"
+              : "bg-amber-300 text-amber-800 hover:bg-amber-400"
+            } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+          onClick={handleAnalyzeCodebase}
+          disabled={isLoading}
+        >
+          Analyze Codebase
+        </button>
+        <button
+          className={`flex-1 px-4 py-2 rounded-md font-medium border border-amber-400 shadow-sm transition-colors duration-200 ${activeTab === "structure"
+              ? "bg-amber-400 text-amber-900"
+              : "bg-amber-300 text-amber-800 hover:bg-amber-400"
+            } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+          onClick={handleAnalyzeStructure}
+          disabled={isLoading}
+        >
+          Analyze Structure
+        </button>
+      </div>
       {/* Question Input */}
       <textarea
         className="w-full bg-cream-50 border-2 border-gray-800 rounded-xl h-[100px] shadow-inner p-4 resize-none focus:outline-none focus:ring-2 focus:ring-amber-400"
@@ -96,15 +94,6 @@ export default function AnalyzeButtons() {
         value={question}
         onChange={(e) => setQuestion(e.target.value)}
       />
-
-      {/* Output Textarea */}
-      <textarea
-        className="w-full bg-cream-50 border-2 border-gray-800 rounded-xl h-[460px] shadow-inner p-4 resize-none focus:outline-none focus:ring-2 focus:ring-amber-400"
-        value={output}
-        placeholder="Output or answer will appear here"
-        readOnly
-      />
-
       {/* Talk to Code Button */}
       <div className="flex justify-end">
         <button
@@ -115,6 +104,15 @@ export default function AnalyzeButtons() {
           Talk to Code
         </button>
       </div>
+      {/* Output Textarea */}
+      <textarea
+        className="w-full bg-cream-50 border-2 border-gray-800 rounded-xl h-[320px] shadow-inner p-4 resize-none focus:outline-none focus:ring-2 focus:ring-amber-400"
+        value={output}
+        placeholder="Output or answer will appear here"
+        readOnly
+      />
+
+  
     </div>
   );
 }
