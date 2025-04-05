@@ -13,10 +13,10 @@ export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col ml-22 min-h-screen bg-gray-50">
       <GitIngestProvider>
         {/* Header */}
-        <header className="border-b border-gray-200 px-6 py-4 flex items-center justify-between bg-white sticky top-0 z-20">
+        <header className="border-b border-gray-200 px-6 mt-[-38px] flex items-center justify-between bg-white sticky top-0 z-20">
           <Logo />
           <div className="flex items-center gap-6">
             <button
